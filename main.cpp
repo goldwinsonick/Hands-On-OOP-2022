@@ -67,8 +67,8 @@ class Player{
         int crit = 0;
         int block = 0;
         int maxWeight;
-        Item armor = Armor("Body", 1, 0, 0);
-        Item weapon = Weapon("Hand", 1, 3, 1, 0);
+        Item *armor = new Armor("Body", 1, 0, 0);
+        Item *weapon = new Weapon("Hand", 1, 3, 1, 0);
         
         Player(string name, int hp, int att, int maxWeight){
             this->name = name;
@@ -76,13 +76,13 @@ class Player{
             this->att = att;
         }
 
-        void equip(Item item){
-            if(item.type == "armor"){
-                if(armor.name == "Body"){
+        void equip(Item *item){
+            if(item->type == "armor"){
+                if(armor->name == "Body"){
                     armor = item;
                 } else {cout<<"Already equipped armor"<<endl;}
-            } else if(item.type == "weapon"){
-                if(weapon.name == "Hand"){
+            } else if(item->type == "weapon"){
+                if(weapon->name == "Hand"){
                     weapon = item;
                 } else {cout<<"Already equipped weapon"<<endl;}
             }
@@ -99,21 +99,22 @@ class Player{
             updateStats();
         }
         void updateStats(){
-            cout<<weapon.getDmg()<<endl;
             def = 0;
             att = 0;
             crit = 0;
             block = 0;
 
-            def += armor.getDef();
-            block += armor.getBlock();
-            att  += weapon.getDmg();
-            crit += weapon.getCrit();
+            def += armor->getDef();
+            block += armor->getBlock();
+            att  += weapon->getDmg();
+            crit += weapon->getCrit();
         }
 };
 int main(){
     Player p1= Player("Bob", 100, 10, 20); 
-    Item w1 = Weapon("sword1", 10, 100, 1, 0.5);
+    Item *w1 = new Weapon("sword1", 10, 100, 1, 0.5);
+    int x = 3;
+    
     cout<<p1.att<<endl;
     p1.equip(w1);
     cout<<p1.att<<endl;
